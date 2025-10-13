@@ -14,6 +14,9 @@ class DiveDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dive_detail)
 
+        // Enable back arrow in the app bar
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val diveId = intent.getIntExtra("DIVE_ID", -1)
         val tvDetail = findViewById<TextView>(R.id.tvDiveDetail)
 
@@ -21,13 +24,20 @@ class DiveDetailActivity : AppCompatActivity() {
             val dive = dives.find { it.id == diveId }
             dive?.let {
                 tvDetail.text = """
-                    Location: ${it.location}
-                    Depth: ${it.depth} ft
-                    Duration: ${it.duration} min
-                    Date: ${it.date}
-                    Notes: ${it.notes}
-                """.trimIndent()
+                Location: ${it.location}
+                Depth: ${it.depth} ft
+                Duration: ${it.duration} min
+                Date: ${it.date}
+                Notes: ${it.notes}
+            """.trimIndent()
             }
         }
     }
+
+    // Handle back arrow click
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
+    }
+
 }

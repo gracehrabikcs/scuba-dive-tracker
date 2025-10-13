@@ -1,15 +1,17 @@
 package com.example.scubadivetracker.model.Dive
-import androidx.room.RoomDatabase
+
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
-import android.content.Context
-
+import androidx.room.RoomDatabase
 
 @Database(entities = [Dive::class], version = 1, exportSchema = false)
 abstract class DiveDatabase : RoomDatabase() {
     abstract fun diveDao(): DiveDao
+
     companion object {
-        @Volatile private var INSTANCE: DiveDatabase? = null
+        @Volatile
+        private var INSTANCE: DiveDatabase? = null
 
         fun getDatabase(context: Context): DiveDatabase {
             return INSTANCE ?: synchronized(this) {
@@ -24,3 +26,4 @@ abstract class DiveDatabase : RoomDatabase() {
         }
     }
 }
+

@@ -14,12 +14,25 @@ import com.example.scubadivetracker.model.Dive.Dive
 import com.example.scubadivetracker.viewmodel.DiveViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+/**
+ * The main activity of the Scuba Dive Tracker app.
+ *
+ * This activity displays a list of all logged dives using a RecyclerView.
+ * It observes data from the DiveViewModel to update the UI whenever the database changes.
+ * Users can view, select, and add dives from this screen.
+ */
 class MainActivity : AppCompatActivity() {
-
+    /** ViewModel that manages data between the UI and the repository layer. */
     private val diveViewModel: DiveViewModel by viewModels()
+    /** Adapter responsible for displaying the list of dives in the RecyclerView. */
     private lateinit var diveAdapter: DiveAdapter
 
-    // Register launcher to handle AddDiveActivity result
+    /**
+     * Activity result launcher for handling results returned from {@link AddDiveActivity}.
+     *
+     * When a user saves a new or edited dive, the result is captured here
+     * and inserted into the database through the ViewModel.
+     */
     private val addDiveLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -48,21 +61,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        /**
+         * Called when the activity is first created.
+         *
+         * Initializes the RecyclerView, connects it to the adapter, observes
+         * the dive list LiveData from the ViewModel, and sets up the Floating Action Button
+         * to open the AddDiveActivity when clicked.
+         *
+         * @param savedInstanceState The previously saved instance state, if available.
+         */
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewDives)
         val fabAddDive = findViewById<FloatingActionButton>(R.id.fabAddDive)
 
+        // Initialize the  adapter with click and long-click actions
         diveAdapter = DiveAdapter(
             emptyList(),
             onClick = { dive -> openDiveDetail(dive) },
-            onLongClick = { dive ->
-                diveViewModel.delete(dive)
-                Toast.makeText(this, "Deleted dive at ${dive.location}", Toast.LENGTH_SHORT).show()
-            }
+            onLongClick = { _ -> } // because DiveAdapter constructor doesn't allow optional params
         )
 
+        // Configure the RecyclerView
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = diveAdapter
@@ -73,13 +94,17 @@ class MainActivity : AppCompatActivity() {
             diveAdapter.updateDives(dives)
         }
 
-        // Launch AddDiveActivity to add a new dive
+        // Launch AddDiveActivity to add a new dive when floating action button is clicked
         fabAddDive.setOnClickListener {
             val intent = Intent(this, AddDiveActivity::class.java)
             addDiveLauncher.launch(intent)
         }
     }
-
+    /**
+     * Opens the DiveDetailActivity for the selected dive.
+     *
+     * @param dive The {@link Dive} object that was selected from the list.
+     */
     private fun openDiveDetail(dive: Dive) {
         val intent = Intent(this, DiveDetailActivity::class.java)
         intent.putExtra("DIVE_ID", dive.id)

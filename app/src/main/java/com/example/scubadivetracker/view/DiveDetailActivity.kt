@@ -13,12 +13,25 @@ import com.example.scubadivetracker.R
 import com.example.scubadivetracker.model.Dive.Dive
 import com.example.scubadivetracker.viewmodel.DiveViewModel
 
-class DiveDetailActivity : AppCompatActivity() {
+/**
+ * Activity that displays detailed information about a specific dive.
+ *
+ * Users can view, edit, and delete the selected dive entry.
+ * Edits are performed by launching [AddDiveActivity] pre-filled with the dive’s data.
+ * Deletions are handled directly within this screen.
+ */
 
+class DiveDetailActivity : AppCompatActivity() {
+    /** ViewModel used to access and modify dive data from the Room database. */
     private val diveViewModel: DiveViewModel by viewModels()
+
+    /** The currently selected dive being viewed or edited. */
     private var currentDive: Dive? = null
 
-    // launcher to get edited dive data
+    /**
+     * Launcher to handle results from [AddDiveActivity].
+     * Updates the current dive in the database and refreshes the UI if edits are saved.
+     */
     private val editDiveLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -38,7 +51,14 @@ class DiveDetailActivity : AppCompatActivity() {
             }
         }
     }
-
+    /**
+     * Called when the activity is created.
+     *
+     * Initializes the layout, retrieves the selected dive by ID,
+     * and sets up button listeners for editing and deleting the dive.
+     *
+     * @param savedInstanceState The saved state of the activity, if any.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dive_detail)
@@ -48,11 +68,13 @@ class DiveDetailActivity : AppCompatActivity() {
         val btnEdit = findViewById<Button>(R.id.btnEditDive)
         val btnDelete = findViewById<Button>(R.id.btnDeleteDive)
 
+        // Observe database for dive data and display matching dive by IDS
         diveViewModel.allDives.observe(this) { dives ->
             currentDive = dives.find { it.id == diveId }
             currentDive?.let { displayDiveDetails(it) }
         }
 
+        // Launch AddDiveActivity to edit existing dives
         btnEdit.setOnClickListener {
             currentDive?.let {
                 val intent = Intent(this, AddDiveActivity::class.java).apply {
@@ -66,6 +88,7 @@ class DiveDetailActivity : AppCompatActivity() {
             }
         }
 
+        // Delete dice and return to main screen
         btnDelete.setOnClickListener {
             currentDive?.let {
                 diveViewModel.delete(it)
@@ -74,7 +97,11 @@ class DiveDetailActivity : AppCompatActivity() {
             }
         }
     }
-
+    /**
+     * Displays the details of a given dive on screen.
+     *
+     * @param dive The [Dive] object whose details are shown.
+     */
     private fun displayDiveDetails(dive: Dive) {
         findViewById<TextView>(R.id.tvDiveDetail).text = """
             Location: ${dive.location}

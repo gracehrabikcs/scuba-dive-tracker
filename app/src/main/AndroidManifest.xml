@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ScubaDiveTracker">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.AddDiveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ScubaDiveTracker">

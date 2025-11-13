@@ -1,48 +1,89 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@drawable/bg_ocean"
     android:padding="16dp"
     tools:context=".view.AddDiveActivity">
 
-    <EditText
-        android:id="@+id/etLocation"
-        android:hint="Location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/etDepth"
-        android:hint="Depth (ft)"
-        android:inputType="numberDecimal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/etDuration"
-        android:hint="Duration (min)"
-        android:inputType="number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/etDate"
-        android:hint="Date (yyyy-mm-dd)"
-        android:inputType="date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/etNotes"
-        android:hint="Notes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btnSaveDive"
-        android:text="Save Dive"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" />
-</LinearLayout>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvAddDiveTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add New Dive"
+            android:textColor="@color/sand_beige"
+            android:textSize="24sp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:paddingBottom="16dp" />
+
+        <EditText
+            android:id="@+id/etLocation"
+            android:hint="Location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/aqua_green"
+            android:textColorHint="@color/sand_beige"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_regular" />
+
+        <EditText
+            android:id="@+id/etDepth"
+            android:hint="Depth (ft)"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/aqua_green"
+            android:textColorHint="@color/sand_beige"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_regular" />
+
+        <EditText
+            android:id="@+id/etDuration"
+            android:hint="Duration (min)"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/aqua_green"
+            android:textColorHint="@color/sand_beige"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_regular" />
+
+        <EditText
+            android:id="@+id/etDate"
+            android:hint="Date (yyyy-mm-dd)"
+            android:inputType="date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/aqua_green"
+            android:textColorHint="@color/sand_beige"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_regular" />
+
+        <EditText
+            android:id="@+id/etNotes"
+            android:hint="Notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/aqua_green"
+            android:textColorHint="@color/sand_beige"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_regular" />
+
+        <Button
+            android:id="@+id/btnSaveDive"
+            android:text="Save Dive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/coral"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_regular"
+            android:elevation="6dp" />
+    </LinearLayout>
+</ScrollView>

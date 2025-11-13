@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.ScubaDiveTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+    <style name="Theme.ScubaDiveTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/sea_blue</item>
+    <item name="colorPrimaryVariant">@color/deep_blue</item>
+    <item name="colorAccent">@color/aqua_green</item>
+    <item name="android:fontFamily">@font/poppins_regular</item>
+    <item name="android:textColor">@color/white</item>
+    <item name="android:windowBackground">@color/deep_blue</item>
+    </style>
 </resources>
